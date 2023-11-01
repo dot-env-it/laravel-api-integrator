@@ -1,0 +1,6 @@
+* test=auto eol=lf
+
+*.md diff=markdown
+*.php diff=php
+
+/.github export-ignore

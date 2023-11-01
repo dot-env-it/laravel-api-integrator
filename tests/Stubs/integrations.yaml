@@ -1,0 +1,14 @@
+integrations:
+  github:
+    url: 'https://api.github.com/'
+    auth:
+      type: Bearer
+      value: !env 'GITHUB_TOKEN'
+      name: 'Authorization'
+
+  example:
+    url: 'https://api.example.com'
+    auth:
+      type: Header
+      value: !env 'EXAMPLE_TOKEN'
+      name: 'X-API-KEY'
