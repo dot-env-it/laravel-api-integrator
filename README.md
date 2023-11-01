@@ -1,6 +1,12 @@
 # Laravel API Integrator
 
+```bash
+composer require dot-env-it/laravel-api-integrator
+```
 
+## USAGE
+
+Create YML file at root of project
 ```yaml
 integrations:
   github:
@@ -22,6 +28,8 @@ integrations:
 use DotEnvIt\ApiIntegrator\Facades\Integration;
 
 Integration::for('github')->get('something')->json();
+
+Integration::for('example')->get('something')->json();
 ```
 
 ```php
