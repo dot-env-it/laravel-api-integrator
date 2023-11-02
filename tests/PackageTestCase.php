@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use DotEnvIt\ApiIntegrator\Providers\ApiIntegratorServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase;
-use DotEnvIt\ApiIntegrator\Providers\PackageServiceProvider;
 
 abstract class PackageTestCase extends TestCase
 {
@@ -18,7 +18,7 @@ abstract class PackageTestCase extends TestCase
     protected function getPackageProviders($app): array
     {
         return [
-            PackageServiceProvider::class,
+            ApiIntegratorServiceProvider::class,
         ];
     }
 }

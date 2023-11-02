@@ -1,12 +1,18 @@
 # Laravel API Integrator
 
+## Installation
 ```bash
 composer require dot-env-it/laravel-api-integrator
 ```
 
-## USAGE
+Run `install` command to publish config file and yml file
 
-Create YML file at root of project
+```bash
+php artisan api-integrator:install
+```
+This command will create `api-integrator.yml` file at root of project and `api-integrator.php` file at `config` folder
+
+Sample `api-integrator.yml` file
 ```yaml
 integrations:
   github:
@@ -23,17 +29,35 @@ integrations:
       token: !env 'EXAMPLE_TOKEN'
       name: 'X-API-KEY'
 ```
+#### You can pass environment variables to yml file using `!env` tag
 
+## USAGE
+ 
 ```php
 use DotEnvIt\ApiIntegrator\Facades\Integration;
 
-Integration::for('github')->get('something')->json();
+//api url https://api.github.com/foo
+Integration::for('github')->get('foo')->json();
 
-Integration::for('example')->get('something')->json();
+//api url https://api.example.com/foo
+Integration::for('example')->get('foo')->json();
 ```
-
+This package also provides a magic method for each http method
 ```php
-Http::baseUrl('https://api.github.com')->withToken(
-    token: '1234-1234-1234-1234',
-)->get('something')->json();
+use DotEnvIt\ApiIntegrator\Facades\Integration;
+
+//api url https://api.example.com/foo
+Integration::for('example')->getFoo()->json();
+
+//api url https://api.example.com/foo/1
+Integration::for('example')->getFoo_id(['id' => 1])->json();
+
+//api url https://api.example.com/foo/1/bar/2
+Integration::for('example')->getFoo_foo_id_bar_bar_id(['foo_id' => 1, 'bar_id' => 2])->json();
+
+//api url https://api.example.com/foo/1?foo=bar&bar=baz
+Integration::for('example')->getFoo_id(['id' => 1, 'foo' => 'bar', 'bar' => 'baz'])->json();
+
+//POST api url https://api.example.com/foo/1/bar/2/baz
+Integration::for('example')->postFoo_foo_id_bar_bar_id_baz(['foo_id' => 1, 'bar_id' => 2])->json();
 ```

@@ -6,6 +6,6 @@ namespace DotEnvIt\ApiIntegrator\Exceptions;
 
 use InvalidArgumentException;
 
-final class UnregisteredIntegrationException extends InvalidArgumentException
+final class InvalidActionException extends InvalidArgumentException
 {
 }

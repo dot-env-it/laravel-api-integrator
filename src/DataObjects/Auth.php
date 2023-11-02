@@ -7,13 +7,16 @@ namespace DotEnvIt\ApiIntegrator\DataObjects;
 use Symfony\Component\Yaml\Tag\TaggedValue;
 use DotEnvIt\ApiIntegrator\Enums\AuthType;
 
-final readonly class Auth
+use function env;
+
+final class Auth
 {
     public function __construct(
         public AuthType $type,
         public string $value,
         public null|string $name = null,
-    ) {}
+    ) {
+    }
 
     /**
      * @param array{type:string,value:TaggedValue,name:null|string} $data
@@ -25,7 +28,7 @@ final readonly class Auth
             type: AuthType::from(
                 value: $data['type'],
             ),
-            value: \env($data['value']->getValue()),
+            value: env($data['value']->getValue()),
             name: $data['name'] ?? null,
         );
     }
