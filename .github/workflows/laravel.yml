@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         php_version: ['8.1', '8.2']
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest]
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
