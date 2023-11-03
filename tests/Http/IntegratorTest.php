@@ -36,7 +36,7 @@ it('can create a pending request', function (): void {
         $integrator->for(
             'github',
         ),
-    )->toBeInstanceOf(PendingRequest::class);
+    )->toBeInstanceOf(Integrator::class);
 });
 
 it('will throw an exception if the integration is not registered', function (): void {
