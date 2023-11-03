@@ -63,3 +63,21 @@ Integration::for('example')->getFoo_id(['id' => 1, 'foo' => 'bar', 'bar' => 'baz
 //POST api url https://api.example.com/foo/1/bar/2/baz
 Integration::for('example')->postFoo_foo_id_bar_bar_id_baz(['foo_id' => 1, 'bar_id' => 2])->json();
 ```
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+### Security
+
+If you discover any security related issues, please email jagdish.j.ptl@gmail.com instead of using the issue tracker.
+
+## Credits
+
+- [Jagdish-J-P](https://github.com/jagdish-j-p)
+- [dot-env-it](https://github.com/dot-env-it)
+- [Just Steve King](https://github.com/JustSteveKing)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
