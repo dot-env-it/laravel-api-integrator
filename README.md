@@ -14,7 +14,7 @@ php artisan api-integrator:install
 ```
 This command will create `api-integrator.yaml` file at root of project and `api-integrator.php` file at `config` folder
 
-Sample `api-integrator.yml` file
+Sample `api-integrator.yaml` file
 ```yaml
 integrations:
   github:
