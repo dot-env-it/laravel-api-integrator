@@ -1,5 +1,7 @@
 # Laravel API Integrator
 
+Package to simplify third-party api integrations. Make API calls like they are part of your code with this package. No need to remember base url or path of any API. Just call it like `Integration::for('api-provider')->getSomethingCool()->json();` 
+
 ## Installation
 ```bash
 composer require dot-env-it/laravel-api-integrator
@@ -10,9 +12,9 @@ Run `install` command to publish config file and yml file
 ```bash
 php artisan api-integrator:install
 ```
-This command will create `api-integrator.yml` file at root of project and `api-integrator.php` file at `config` folder
+This command will create `api-integrator.yaml` file at root of project and `api-integrator.php` file at `config` folder
 
-Sample `api-integrator.yml` file
+Sample `api-integrator.yaml` file
 ```yaml
 integrations:
   github:
@@ -29,7 +31,7 @@ integrations:
       token: !env 'EXAMPLE_TOKEN'
       name: 'X-API-KEY'
 ```
-#### You can pass environment variables to yml file using `!env` tag
+#### You can pass environment variables to yaml file using `!env` tag
 
 ## USAGE
  
