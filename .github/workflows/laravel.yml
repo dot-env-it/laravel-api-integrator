@@ -32,4 +32,4 @@ jobs:
       run: chmod -R 755 .
 
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: vendor/bin/phpunit
+      run: vendor/bin/pest
