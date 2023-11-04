@@ -2,6 +2,13 @@
 
 Package to simplify third-party api integrations. Make API calls like they are part of your code with this package. No need to remember base url or path of any API. Just call it like `Integration::for('api-provider')->getSomethingCool()->json();` 
 
+
+## Become a sponsor
+
+[![](.github/assets/support.png)](https://github.com/sponsors/Jagdish-J-P)
+
+Your support allows me to keep this package free, up-to-date and maintainable. Alternatively, you can **[spread the word!](http://twitter.com/share?text=I+am+using+this+cool+PHP+package&url=https://github.com/dot-env-it/laravel-api-integrator&hashtags=PHP,Laravel)**
+
 ## Installation
 ```bash
 composer require dot-env-it/laravel-api-integrator
