@@ -1,7 +1,6 @@
 # Laravel API Integrator
 
-Package to simplify third-party api integrations. Make API calls like they are part of your code with this package. No need to remember base url or path of any API. For instance to make post api call to `https://example.com/users`, Just call it like `Integration::for('example')->postUsers(['name' => 'John Doe'])->json();`
-
+Package to simplify third-party api integrations. Make API calls like they are part of your code with this package. No need to remember base url or path of any API. Just call it like `Integration::for('api-provider')->getSomethingCool()->json();` 
 
 ## Become a sponsor
 
