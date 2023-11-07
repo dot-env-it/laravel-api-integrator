@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Client\PendingRequest;
 use DotEnvIt\ApiIntegrator\DataObjects\Integration;
 use DotEnvIt\ApiIntegrator\Exceptions\UnregisteredIntegrationException;
 use DotEnvIt\ApiIntegrator\Http\Integrator;
+use Illuminate\Http\Client\Request;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
@@ -68,32 +68,7 @@ it('can call the magic methods', function (): void {
     );
 
     Http::fake(
-        [
-            'api.example.com/users' => Http::response(
-                [
-                    'data' => [
-                        'users' => [
-                            [
-                                'id'   => 1,
-                                'name' => 'John Doe',
-                            ],
-                        ],
-                    ],
-                ],
-            ),
-            'api.example.com/users/1/posts/2/*' => Http::response(
-                [
-                    'data' => [
-                        'posts' => [
-                            [
-                                'id'   => 2,
-                                'name' => 'post 2',
-                            ],
-                        ],
-                    ],
-                ],
-            ),
-        ],
+        getFakeRequests(),
     );
 
     expect(
@@ -113,3 +88,75 @@ it('can call the magic methods', function (): void {
         )->toBe('post 2');
 
 });
+
+it('can set custom token', function (): void {
+    $integrator = Integrator::make(
+        __DIR__ . '/../Stubs/integrations.yaml',
+    );
+
+    Http::fake(
+        getFakeRequests(),
+    );
+
+    expect(
+        $request = $integrator->for('example')->withToken('fake')->getUsers(),
+    )->toBeInstanceOf(Response::class)
+        ->and(
+            $request->json('data.users.0.name'),
+        )->toBe('John Doe');
+
+    Http::assertSent(fn(Request $request) => $request->hasHeader('Authorization', 'Bearer fake') && ! $request->hasHeader('Authorization', 'Bearer test'));
+
+
+});
+
+it('can set custom header', function (): void {
+    $integrator = Integrator::make(
+        __DIR__ . '/../Stubs/integrations.yaml',
+    );
+
+    Http::fake(
+        getFakeRequests(),
+    );
+
+    expect(
+        $request = $integrator->for('example')->withHeader('X-CUSTOM-HEADER', 'fake')->getUsers(),
+    )->toBeInstanceOf(Response::class)
+        ->and(
+            $request->json('data.users.0.name'),
+        )->toBe('John Doe');
+
+    Http::assertSent(fn(Request $request) => $request->hasHeader('X-CUSTOM-HEADER', 'fake'));
+
+});
+
+
+function getFakeRequests(): array
+{
+    return [
+        'api.example.com/users' => Http::response(
+            [
+                'data' => [
+                    'users' => [
+                        [
+                            'id'   => 1,
+                            'name' => 'John Doe',
+                        ],
+                    ],
+                ],
+            ],
+        ),
+        'api.example.com/users/1/posts/2/*' => Http::response(
+            [
+                'data' => [
+                    'posts' => [
+                        [
+                            'id'   => 2,
+                            'name' => 'post 2',
+                        ],
+                    ],
+                ],
+            ],
+        ),
+    ];
+}

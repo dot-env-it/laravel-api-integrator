@@ -130,6 +130,25 @@ final class Integrator
         return $this;
     }
 
+    public function withToken(string $token): self
+    {
+        $this->request->withToken(
+            token: $token,
+        );
+
+        return $this;
+    }
+
+    public function withHeader(string $name, string $value): self
+    {
+        $this->request->withHeader(
+            name: $name,
+            value: $value,
+        );
+
+        return $this;
+    }
+
     public static function make(string $config): Integrator
     {
         $yaml = Yaml::parse(
