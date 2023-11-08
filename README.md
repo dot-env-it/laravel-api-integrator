@@ -8,7 +8,7 @@ Package to simplify third-party api integrations. Make API calls like they are p
 
 ## Become a sponsor
 
-[![](.github/assets/support.png)](https://github.com/sponsors/Jagdish-J-P)
+[Click to Sponsor](https://github.com/sponsors/Jagdish-J-P)
 
 Your support allows me to keep this package free, up-to-date and maintainable. Alternatively, you can **[spread the word!](http://twitter.com/share?text=I+am+using+this+cool+PHP+package&url=https://github.com/dot-env-it/laravel-api-integrator&hashtags=PHP,Laravel)**
 
