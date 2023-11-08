@@ -16,7 +16,7 @@ Your support allows me to keep this package free, up-to-date and maintainable. A
 composer require dot-env-it/laravel-api-integrator
 ```
 
-Run `install` command to publish config file and yml file
+Run `install` command to publish config file and yaml file
 
 ```bash
 php artisan api-integrator:install
