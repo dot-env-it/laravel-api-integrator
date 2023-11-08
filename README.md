@@ -3,12 +3,11 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/dot-env-it/laravel-api-integrator.svg?style=flat-square)](https://packagist.org/packages/dot-env-it/laravel-api-integrator)
 [![Total Downloads](https://img.shields.io/packagist/dt/dot-env-it/laravel-api-integrator.svg?style=flat-square)](https://packagist.org/packages/dot-env-it/laravel-api-integrator)
 ![GitHub Actions](https://github.com/dot-env-it/laravel-api-integrator/actions/workflows/laravel.yml/badge.svg)
+[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/Jagdish-J-P)
 
 Package to simplify third-party api integrations. Make API calls like they are part of your code with this package. No need to remember base url or path of any API. Just call it like `Integration::for('api-provider')->getSomethingCool()->json();` 
 
-## Become a sponsor
-
-[Click to Sponsor](https://github.com/sponsors/Jagdish-J-P)
+## Become a sponsor [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/Jagdish-J-P)
 
 Your support allows me to keep this package free, up-to-date and maintainable. Alternatively, you can **[spread the word!](http://twitter.com/share?text=I+am+using+this+cool+PHP+package&url=https://github.com/dot-env-it/laravel-api-integrator&hashtags=PHP,Laravel)**
 
