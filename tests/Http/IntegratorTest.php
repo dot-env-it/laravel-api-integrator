@@ -105,7 +105,7 @@ it('can set custom token', function (): void {
             $request->json('data.users.0.name'),
         )->toBe('John Doe');
 
-    Http::assertSent(fn(Request $request) => $request->hasHeader('Authorization', 'Bearer fake') && ! $request->hasHeader('Authorization', 'Bearer test'));
+    Http::assertSent(fn (Request $request) => $request->hasHeader('Authorization', 'Bearer fake') && ! $request->hasHeader('Authorization', 'Bearer test'));
 
 
 });
@@ -120,13 +120,41 @@ it('can set custom header', function (): void {
     );
 
     expect(
-        $request = $integrator->for('example')->withHeader('X-CUSTOM-HEADER', 'fake')->getUsers(),
+        $request = $integrator->for('example')
+            ->withHeader('X-CUSTOM-HEADER', 'fake')
+            ->withHeader('X-CUSTOM-HEADER-2', 'fake2')
+            ->getUsers(),
     )->toBeInstanceOf(Response::class)
         ->and(
             $request->json('data.users.0.name'),
         )->toBe('John Doe');
 
-    Http::assertSent(fn(Request $request) => $request->hasHeader('X-CUSTOM-HEADER', 'fake'));
+    Http::assertSent(fn (Request $request) => $request->hasHeader('X-CUSTOM-HEADER', 'fake'));
+    Http::assertSent(fn (Request $request) => $request->hasHeader('X-CUSTOM-HEADER-2', 'fake2'));
+
+});
+
+it('can set custom headers', function (): void {
+    $integrator = Integrator::make(
+        __DIR__ . '/../Stubs/integrations.yaml',
+    );
+
+    Http::fake(
+        getFakeRequests(),
+    );
+
+    expect(
+        $request = $integrator->for('example')->withHeaders([
+            'X-CUSTOM-HEADER'   => 'fake',
+            'X-CUSTOM-HEADER-2' => 'fake2',
+        ])->getUsers(),
+    )->toBeInstanceOf(Response::class)
+        ->and(
+            $request->json('data.users.0.name'),
+        )->toBe('John Doe');
+
+    Http::assertSent(fn (Request $request) => $request->hasHeader('X-CUSTOM-HEADER', 'fake'));
+    Http::assertSent(fn (Request $request) => $request->hasHeader('X-CUSTOM-HEADER-2', 'fake2'));
 
 });
 

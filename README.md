@@ -60,6 +60,15 @@ use DotEnvIt\ApiIntegrator\Facades\Integration;
 //api url https://api.example.com/foo
 Integration::for('example')->getFoo()->json();
 
+//api url https://api.example.com/foo with dynamic token
+Integration::for('example')->withToken('new-token')->getFoo()->json();
+
+//api url https://api.example.com/foo with dynamic header
+Integration::for('example')->withHeader('X-CUSTOM-HEADER', 'CUSTOM')->withHeader('X-CUSTOM-HEADER-2', 'CUSTOM-2')->getFoo()->json();
+
+//api url https://api.example.com/foo with headers array
+Integration::for('example')->withHeaders(['X-CUSTOM-HEADER' => 'CUSTOM', 'X-CUSTOM-HEADER-2' => 'CUSTOM-2'])->getFoo()->json();
+
 //api url https://api.example.com/foo/1
 Integration::for('example')->getFoo_id(['id' => 1])->json();
 

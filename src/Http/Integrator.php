@@ -149,6 +149,15 @@ final class Integrator
         return $this;
     }
 
+    public function withHeaders(array $headers): self
+    {
+        $this->request->withHeaders(
+            headers: $headers,
+        );
+
+        return $this;
+    }
+
     public static function make(string $config): Integrator
     {
         $yaml = Yaml::parse(
