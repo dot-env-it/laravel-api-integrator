@@ -24,12 +24,14 @@ final class Auth
      */
     public static function fromArray(array $data): Auth
     {
+        info('Auth::fromArray', ['data' => $data, 'env' => env($data['value']->getValue())]);
+        
         return new Auth(
             type: AuthType::from(
                 value: $data['type'],
             ),
-            value: env($data['value']->getValue()),
-            name: $data['name'] ?? null,
+            value: env($data['value']->getValue()) ?? '',
+            name: $data['name'] ?? '',
         );
     }
 }
