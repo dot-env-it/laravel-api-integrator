@@ -32,6 +32,10 @@ final class Integrator
     {
         empty($arguments) && $arguments = [[]];
 
+        if(method_exists(PendingRequest::class, $name)) {
+            return $this->request->{$name}(...$arguments);
+        }
+
         $actions = $this->getActionInfo($name, $arguments[0]);
 
         if (
