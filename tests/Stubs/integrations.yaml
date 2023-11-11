@@ -3,12 +3,12 @@ integrations:
     url: 'https://api.github.com/'
     auth:
       type: Bearer
-      value: !env 'GITHUB_TOKEN'
+      value: !config 'api-integrator.github.token'
       name: 'Authorization'
 
   example:
     url: 'https://api.example.com'
     auth:
       type: Header
-      value: !env 'EXAMPLE_TOKEN'
+      value: !config 'api-integrator.example.token'
       name: 'X-API-KEY'

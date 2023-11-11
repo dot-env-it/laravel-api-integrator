@@ -24,13 +24,13 @@ final class Auth
      */
     public static function fromArray(array $data): Auth
     {
-        info('Auth::fromArray', ['data' => $data, 'env' => env($data['value']->getValue()), 'getenv' => config('api-integrator.token')]);
+        info('Auth::fromArray', ['data' => $data, 'config' => config($data['value']->getValue())]);
 
         return new Auth(
             type: AuthType::from(
                 value: $data['type'],
             ),
-            value: config('api-integrator.token') ?? '',
+            value: config($data['value']->getValue(), ''),
             name: $data['name'] ?? '',
         );
     }
