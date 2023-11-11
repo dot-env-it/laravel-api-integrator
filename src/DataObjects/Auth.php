@@ -7,8 +7,6 @@ namespace DotEnvIt\ApiIntegrator\DataObjects;
 use Symfony\Component\Yaml\Tag\TaggedValue;
 use DotEnvIt\ApiIntegrator\Enums\AuthType;
 
-use function env;
-
 final class Auth
 {
     public function __construct(
