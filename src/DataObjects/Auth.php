@@ -22,7 +22,6 @@ final class Auth
      */
     public static function fromArray(array $data): Auth
     {
-        info('Auth::fromArray', ['data' => $data, 'config' => config($data['value']->getValue())]);
 
         return new Auth(
             type: AuthType::from(
