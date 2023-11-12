@@ -30,17 +30,17 @@ integrations:
     url: 'https://api.github.com/'
     auth:
       type: Bearer
-      value: !env 'GITHUB_TOKEN'
+      value: !config 'api-integrator.token.github'
       name: 'Authorization'
 
   example:
     url: 'https://api.example.com'
     auth:
       type: Header
-      token: !env 'EXAMPLE_TOKEN'
+      token: !config 'api-integrator.token.example'
       name: 'X-API-KEY'
 ```
-#### You can pass environment variables to yaml file using `!env` tag
+#### You can pass config variables to yaml file using `!config` tag
 
 ## USAGE
  
