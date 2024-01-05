@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
 use DotEnvIt\ApiIntegrator\Http\Integrator;
 
 /**
- * @method static PendingRequest for(string $key)
+ * @method static Integrator for(string $key)
  */
 final class Integration extends Facade
 {

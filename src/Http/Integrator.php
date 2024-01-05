@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace DotEnvIt\ApiIntegrator\Http;
 
+use DotEnvIt\ApiIntegrator\DataObjects\Integration;
+use DotEnvIt\ApiIntegrator\Enums\AuthType;
 use DotEnvIt\ApiIntegrator\Exceptions\InvalidActionException;
+use DotEnvIt\ApiIntegrator\Exceptions\UnregisteredIntegrationException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
-use DotEnvIt\ApiIntegrator\DataObjects\Integration;
-use DotEnvIt\ApiIntegrator\Enums\AuthType;
-use DotEnvIt\ApiIntegrator\Exceptions\UnregisteredIntegrationException;
-
 use function array_key_exists;
 use function file_get_contents;
 
@@ -25,23 +24,24 @@ final class Integrator
     public function __construct(
         public array          $integrations,
         public PendingRequest $request = new PendingRequest(),
-    ) {
+    )
+    {
     }
 
     public function __call($name, $arguments): Response
     {
         empty($arguments) && $arguments = [[]];
 
-        if(method_exists(PendingRequest::class, $name)) {
+        if (method_exists(PendingRequest::class, $name)) {
             return $this->request->{$name}(...$arguments);
         }
 
         $actions = $this->getActionInfo($name, $arguments[0]);
 
         if (
-            ! isset($actions['method'])
-            || ! isset($actions['path'])
-            || ! method_exists($this->request, $actions['method'])
+            !isset($actions['method'])
+            || !isset($actions['path'])
+            || !method_exists($this->request, $actions['method'])
         ) {
             throw new InvalidActionException('Invalid action');
         }
@@ -65,7 +65,7 @@ final class Integrator
 
         return [
             'method' => array_shift($actions),
-            'path'   => $this->transformPath(
+            'path' => $this->transformPath(
                 path: Str::slug(
                     implode('-', $actions)
                 ),
@@ -105,7 +105,7 @@ final class Integrator
      */
     public function for(string $key): self
     {
-        if ( ! array_key_exists($key, $this->integrations)) {
+        if (!array_key_exists($key, $this->integrations)) {
             throw new UnregisteredIntegrationException(
                 message: "Cannot call [{$key}], this integration has yet to be registered.",
             );
@@ -115,7 +115,7 @@ final class Integrator
             url: $this->integrations[$key]->url,
         );
 
-        if ( ! app()->isProduction()) {
+        if (!app()->isProduction()) {
             $this->request->withOptions(['verify' => false]);
         }
 
@@ -138,6 +138,82 @@ final class Integrator
     {
         $this->request->withToken(
             token: $token,
+        );
+
+        return $this;
+    }
+
+    public function asForm(): self
+    {
+        $this->request->asForm();
+
+        return $this;
+    }
+
+    public function asJson(): self
+    {
+        $this->request->asJson();
+
+        return $this;
+    }
+
+    public function asMultipart(): self
+    {
+        $this->request->asMultipart();
+
+        return $this;
+    }
+
+    public function asOctetStream(): self
+    {
+        $this->request->asOctetStream();
+
+        return $this;
+    }
+
+    public function asXml(): self
+    {
+        $this->request->asXml();
+
+        return $this;
+    }
+
+    public function attach(string|array $name, string|resource $contents = '', string|null $filename = null, array $headers = []): self
+    {
+        $this->request->attach(
+            name: $name,
+            contents: $contents,
+            filename: $filename,
+            headers: $headers,
+        );
+
+        return $this;
+    }
+
+    public function withOptions(array $options): self
+    {
+        $this->request->withOptions(
+            options: $options,
+        );
+
+        return $this;
+    }
+
+    public function withCookies(array $cookies, string $domain): self
+    {
+        $this->request->withCookies(
+            cookies: $cookies,
+            domain: $domain,
+        );
+
+        return $this;
+    }
+
+    public function withCookie(string $name, string $value): self
+    {
+        $this->request->withCookie(
+            name: $name,
+            value: $value,
         );
 
         return $this;
