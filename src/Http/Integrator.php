@@ -13,6 +13,7 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
+
 use function array_key_exists;
 use function file_get_contents;
 
@@ -24,11 +25,10 @@ final class Integrator
     public function __construct(
         public array          $integrations,
         public PendingRequest $request = new PendingRequest(),
-    )
-    {
+    ) {
     }
 
-    public function __call($name, $arguments): Response
+    public function __call(string $name, array $arguments): Response
     {
         empty($arguments) && $arguments = [[]];
 
@@ -39,9 +39,9 @@ final class Integrator
         $actions = $this->getActionInfo($name, $arguments[0]);
 
         if (
-            !isset($actions['method'])
-            || !isset($actions['path'])
-            || !method_exists($this->request, $actions['method'])
+            empty($actions['method'])
+            || empty($actions['path'])
+            || ! method_exists($this->request, $actions['method'])
         ) {
             throw new InvalidActionException('Invalid action');
         }
@@ -65,7 +65,7 @@ final class Integrator
 
         return [
             'method' => array_shift($actions),
-            'path' => $this->transformPath(
+            'path'   => $this->transformPath(
                 path: Str::slug(
                     implode('-', $actions)
                 ),
@@ -105,7 +105,7 @@ final class Integrator
      */
     public function for(string $key): self
     {
-        if (!array_key_exists($key, $this->integrations)) {
+        if ( ! array_key_exists($key, $this->integrations)) {
             throw new UnregisteredIntegrationException(
                 message: "Cannot call [{$key}], this integration has yet to be registered.",
             );
@@ -115,7 +115,7 @@ final class Integrator
             url: $this->integrations[$key]->url,
         );
 
-        if (!app()->isProduction()) {
+        if ( ! app()->isProduction()) {
             $this->request->withOptions(['verify' => false]);
         }
 
@@ -178,7 +178,7 @@ final class Integrator
         return $this;
     }
 
-    public function attach(string|array $name, string|resource $contents = '', string|null $filename = null, array $headers = []): self
+    public function attach(string|array $name, string $contents = '', string|null $filename = null, array $headers = []): self
     {
         $this->request->attach(
             name: $name,
