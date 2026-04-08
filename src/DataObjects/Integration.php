@@ -19,7 +19,7 @@ final class Integration
     public static function fromArray(array $data): Integration
     {
         return new Integration(
-            url: $data['url'],
+            url: is_string($data['url']) ? $data['url'] : config($data['url']->getValue(), ''),
             auth: $data['auth'] ?
                 Auth::fromArray(
                     data: $data['auth'],
