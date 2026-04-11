@@ -28,7 +28,7 @@ final class Integrator
     ) {
     }
 
-    public function __call(string $name, array $arguments): Response
+    public function __call(string $name, array $arguments): Response|PendingRequest
     {
         empty($arguments) && $arguments = [[]];
 
