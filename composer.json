@@ -18,9 +18,10 @@
   },
   "require-dev": {
     "laravel/pint": "^1.13",
-    "orchestra/testbench": "^8.11",
+    "orchestra/testbench": "^9.0",
     "pestphp/pest": "^3.0",
-    "pestphp/pest-plugin-type-coverage": "^2.2",
+    "pestphp/pest-plugin": "^3.0",
+    "pestphp/pest-plugin-type-coverage": "^3.0",
     "roave/security-advisories": "dev-latest"
   },
   "autoload": {
